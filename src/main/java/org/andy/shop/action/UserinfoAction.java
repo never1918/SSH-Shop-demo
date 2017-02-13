@@ -4,7 +4,6 @@ import java.util.List;
   
 import org.andy.shop.entity.UserInfo;  
 import org.andy.shop.service.UserInfoService;  
-import org.andy.shop.utils.AjaxUtil;  
 import org.apache.log4j.Logger;  
 import org.apache.struts2.ServletActionContext;  
 import org.apache.struts2.convention.annotation.Namespace;  
@@ -79,7 +78,7 @@ public class UserinfoAction extends ActionSupport implements
         String id = ServletActionContext.getRequest().getParameter("id");  
         LOGGER.info("查看用户详情：" + id);  
         userInfo = userInfoService.get(Integer.valueOf(id));  
-        AjaxUtil.ajaxJSONResponse(userInfo);  
+//        AjaxUtil.ajaxJSONResponse(userInfo);  
   
     }  
   
