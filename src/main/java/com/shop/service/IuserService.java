@@ -1,7 +1,7 @@
 package com.shop.service;
 
-import com.shop.model.user_t;
+import com.shop.model.user;
 
 public interface IuserService {
-	public user_t getUserById(int userId);
+	public user getUserById(int userId);
 }

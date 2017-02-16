@@ -1,6 +1,6 @@
 package com.shop.model;
 
-public class user_t {
+public class user {
     private Integer id;
 
     private String userName;
