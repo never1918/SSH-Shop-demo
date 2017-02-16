@@ -1,5 +1,7 @@
 package com.shop.service.impl;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
@@ -16,6 +18,11 @@ public class UserServiceImpl implements IuserService {
     public user getUserById(int userId) {  
         // TODO Auto-generated method stub  
         return this.userDao.selectByPrimaryKey(userId);  
-    }  
+    }
+	@Override
+	public List<user> getuser() {
+		// TODO Auto-generated method stub
+		return this.userDao.selectall();
+	}  
   
 }  
