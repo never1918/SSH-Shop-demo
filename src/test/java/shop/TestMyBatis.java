@@ -11,9 +11,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
   
 
 
+
 import com.alibaba.fastjson.JSON;  
-import com.shop.model.user;
-import com.shop.service.IuserService;
+import com.shop.model.User;
+import com.shop.service.UserService;
 @RunWith(SpringJUnit4ClassRunner.class)  
 @ContextConfiguration(locations = { "classpath:spring.xml",  
         "classpath:spring-mybatis.xml" })  
@@ -23,18 +24,18 @@ public class TestMyBatis {
             .getLogger(TestMyBatis.class);  
   
     @Autowired  
-    private IuserService userService;  
+    private UserService userService;  
   
       
     @Test  
     public void testQueryById1() {  
-        user userInfo = userService.getUserById(1);  
+        User userInfo = userService.getUserById(1);  
         LOGGER.info(JSON.toJSON(userInfo));  
     }  
   
     @Test  
     public void testQueryAll() {  
-        List<user> userInfos = userService.getuser();  
+        List<User> userInfos = userService.getuser();  
         LOGGER.info(JSON.toJSON(userInfos));  
     }  
 }  

@@ -6,23 +6,23 @@ import javax.annotation.Resource;
 
 import org.springframework.stereotype.Service;
 
-import com.shop.dao.userMapper;
-import com.shop.model.user;
-import com.shop.service.IuserService;
+import com.shop.dao.UserMapper;
+import com.shop.model.User;
+import com.shop.service.UserService;
 
 @Service("userService")  
-public class UserServiceImpl implements IuserService {  
+public class UserServiceImpl implements UserService {  
     @Resource  
-    private userMapper userDao;  
+    private UserMapper userDao;  
     @Override  
-    public user getUserById(int userId) {  
+    public User getUserById(int userId) {  
         // TODO Auto-generated method stub  
         return this.userDao.selectByPrimaryKey(userId);  
     }
 	@Override
-	public List<user> getuser() {
+	public List<User> getuser() {
 		// TODO Auto-generated method stub
-		return this.userDao.selectall();
+		return null;
 	}  
   
 }  

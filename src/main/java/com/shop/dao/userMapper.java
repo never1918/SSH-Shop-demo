@@ -1,21 +1,17 @@
 package com.shop.dao;
 
-import java.util.List;
+import com.shop.model.User;
 
-import com.shop.model.user;
-
-public interface userMapper {
+public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(user record);
+    int insert(User record);
 
-    int insertSelective(user record);
+    int insertSelective(User record);
 
-    user selectByPrimaryKey(Integer id);
+    User selectByPrimaryKey(Integer id);
 
-    int updateByPrimaryKeySelective(user record);
+    int updateByPrimaryKeySelective(User record);
 
-    int updateByPrimaryKey(user record);
-    
-    List<user> selectall();
+    int updateByPrimaryKey(User record);
 }
