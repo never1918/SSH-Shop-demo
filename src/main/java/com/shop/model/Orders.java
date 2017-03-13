@@ -1,6 +1,7 @@
 package com.shop.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Orders {
     private Integer id;
@@ -13,7 +14,27 @@ public class Orders {
 
     private String note;
 
-    public Integer getId() {
+    private User user;
+    
+    private List<OrdersDetail> orderDetails;
+    
+    public List<OrdersDetail> getOrderDetails() {
+		return orderDetails;
+	}
+
+	public void setOrderDetails(List<OrdersDetail> orderDetails) {
+		this.orderDetails = orderDetails;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Integer getId() {
         return id;
     }
 
@@ -52,4 +73,5 @@ public class Orders {
     public void setNote(String note) {
         this.note = note == null ? null : note.trim();
     }
+
 }

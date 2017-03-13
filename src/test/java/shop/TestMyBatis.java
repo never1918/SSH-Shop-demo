@@ -14,7 +14,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 
+
 import com.alibaba.fastjson.JSON;  
+import com.shop.model.Orders;
 import com.shop.model.OrdersCustom;
 import com.shop.model.User;
 import com.shop.service.OrdersCustomService;
@@ -48,5 +50,23 @@ public class TestMyBatis {
     public void testFindOrdersUser() throws Exception{
     	List<OrdersCustom> orderscutomInfos = orderscustomService.findOrdersUser();
     	LOGGER.info(JSON.toJSON(orderscutomInfos));
+    }
+    
+    @Test
+    public void testFindOrdersUserResultMap() throws Exception{
+    	List<Orders> ordersInfos = orderscustomService.findOrdersUserResultMap();
+    	LOGGER.info(JSON.toJSON(ordersInfos));
+    }
+    
+    @Test
+    public void testfindOrdersAndOrderDetailsResultMap() throws Exception{
+    	List<Orders> OrdersAndOrderDetailsInfos = orderscustomService.findOrdersAndOrderDetailsResultMap();
+    	LOGGER.info(JSON.toJSON(OrdersAndOrderDetailsInfos));
+    }
+    
+    @Test
+    public void testfindUserAndItemsResultMap() throws Exception{
+    	List<User> findUserAndItemsResultMap = orderscustomService.findUserAndItemsResultMap();
+    	LOGGER.info(JSON.toJSON(findUserAndItemsResultMap));
     }
 }  

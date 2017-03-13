@@ -16,12 +16,10 @@ public class UserServiceImpl implements UserService {
     private UserMapper userDao;  
     @Override  
     public User getUserById(int userId) {  
-        // TODO Auto-generated method stub  
         return this.userDao.selectByPrimaryKey(userId);  
     }
 	@Override
 	public List<User> getuser() {
-		// TODO Auto-generated method stub
 		return null;
 	}  
   

@@ -1,9 +1,77 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.shop.dao.OrdersMapperCustom" >
+<mapper namespace="com.shop.dao.OrdersMapperCustom">
+
+	<!-- 订单查询关联用户的resultMap 映射查询结果 -->
+	<resultMap type="com.shop.model.Orders" id="OrderUserResultMap">
+		<!-- 配置映射的订单信息 -->
+		<!-- colum :订单信息的唯一标识列 property:映射的属性 -->
+		<id column="id" property="id" />
+		<!-- 配置映射的关联用户信息 -->
+		<result column="user_id" property="userId" />
+		<result column="number" property="number" />
+		<result column="createtime" property="createtime" />
+		<result column="note" property="note" />
+		<!-- 配置映射关联的用户信息 -->
+		<!-- 映射关联查询单个对象的信息 property:要关联的用户信息映射到Orders的哪个属性 -->
+		<association property="user" javaType="com.shop.model.User">
+			<id column="user_id" property="id" />
+			<result column="username" property="username" />
+			<result column="sex" property="sex" />
+			<result column="address" property="address" />
+		</association>
+	</resultMap>
+
+	<!-- 订单和订单明细的resultMap 使用继承 -->
+	<resultMap type="com.shop.model.Orders" id="OrdersAndOrderDetailsResultMap"
+		extends="OrderUserResultMap">
+		<!-- 配置映射关联的用户信息 -->
+		<!-- 映射关联查询单个对象的信息 property:要关联的用户信息映射到Orders的哪个属性 -->
+		<!-- 映射到集合使用collection property:映射到Orders中的哪个属性 ofType:映射到集合属性POJO的类型 -->
+		<collection property="orderDetails" ofType="com.shop.model.OrdersDetail">
+			<!-- id :订单唯一标识 property：映射属性 -->
+			<id column="orderdetail_id" property="id" />
+			<result column="items_id" property="itemsId" />
+			<result column="items_num" property="itemsNum" />
+			<result column="order_id" property="orderId" />
+		</collection>
+	</resultMap>
+
+	<!-- 查询用户和购买的商品 -->
+	<resultMap type="com.shop.model.User" id="UserAndItemsResultMap">
+		<!-- 用户信息 -->
+		<id column="user_id" property="id" />
+		<result column="username" property="username" />
+		<result column="sex" property="sex" />
+		<result column="address" property="address" />
+		<!-- 订单 一对多使用collection -->
+		<collection property="ordersList" ofType="com.shop.model.Orders">
+			<id column="id" property="id" />
+			<result column="user_id" property="userId" />
+			<result column="number" property="number" />
+			<result column="createtime" property="createtime" />
+			<result column="note" property="note" />
+			<!-- 订单中 一对多个订单明细 -->
+			<collection property="orderDetails" ofType="com.shop.model.OrdersDetail">
+				<!-- id :订单唯一标识 property：映射属性 -->
+				<id column="orderdetail_id" property="id" />
+				<result column="items_id" property="itemsId" />
+				<result column="items_num" property="itemsNum" />
+				<result column="order_id" property="orderId" />
+				<!-- 一个明细对应一个商品 -->
+				<association property="items" javaType="com.shop.model.Items">
+					<id column="items_id" property="id" />
+					<result column="items_name" property="name" />
+					<result column="items_detail" property="detail" />
+					<result column="items_price" property="price" />
+				</association>
+			</collection>
+		</collection>
+	</resultMap>
+
 	<!-- 查询订单信息 -->
 	<select id="findOrdersUser" resultType="com.shop.model.OrdersCustom">
-		SELECT 
+		SELECT
 		cnt_orders.*,
 		cnt_user.username,
 		cnt_user.sex,
@@ -14,4 +82,67 @@
 		WHERE
 		cnt_orders.user_id = cnt_user.id
 	</select>
+
+	<!-- 查询订单关联用户信息 -->
+	<select id="findOrdersUserResultMap" resultMap="OrderUserResultMap">
+		SELECT
+		cnt_orders.*,
+		cnt_user.username,
+		cnt_user.sex,
+		cnt_user.address
+		FROM
+		cnt_orders,
+		cnt_user
+		WHERE
+		cnt_orders.user_id = cnt_user.id
+	</select>
+
+	<!-- 查询订单关联用户及订单明细信息 -->
+	<select id="findOrdersAndOrderDetailsResultMap" resultMap="OrdersAndOrderDetailsResultMap">
+		SELECT
+		cnt_orders.*,
+		cnt_user.username,
+		cnt_user.sex,
+		cnt_user.address,
+		cnt_orders_detail.id orderdetail_id,
+		cnt_orders_detail.items_id,
+		cnt_orders_detail.items_num,
+		cnt_orders_detail.order_id
+		FROM
+		cnt_orders,
+		cnt_user,
+		cnt_orders_detail
+		WHERE
+		cnt_orders.user_id=cnt_user.id AND
+		cnt_orders_detail.order_id =
+		cnt_orders.id;
+	</select>
+
+	<select id="findUserAndItemsResultMap" resultMap="UserAndItemsResultMap">
+		SELECT
+		cnt_orders.*,
+		cnt_user.username,
+		cnt_user.sex,
+		cnt_user.address,
+		cnt_orders_detail.id orderdetail_id,
+		cnt_orders_detail.items_id,
+		cnt_orders_detail.items_num,
+		cnt_orders_detail.order_id,
+		cnt_items.name
+		items_name,
+		cnt_items.detail items_detail,
+		cnt_items.price items_price
+		FROM
+		cnt_orders,
+		cnt_user,
+		cnt_orders_detail,
+		cnt_items
+		WHERE
+		cnt_orders.user_id=cnt_user.id AND
+		cnt_orders_detail.order_id =
+		cnt_orders.id
+		AND
+		cnt_items.id=cnt_orders_detail.items_id;
+	</select>
+
 </mapper>

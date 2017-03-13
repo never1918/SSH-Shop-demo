@@ -1,6 +1,7 @@
 package com.shop.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
     private Integer id;
@@ -15,11 +16,21 @@ public class User {
 
     private String address;
 
+    private List<Orders> ordersList;
+    
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public List<Orders> getOrdersList() {
+		return ordersList;
+	}
+
+	public void setOrdersList(List<Orders> ordersList) {
+		this.ordersList = ordersList;
+	}
+
+	public void setId(Integer id) {
         this.id = id;
     }
 
