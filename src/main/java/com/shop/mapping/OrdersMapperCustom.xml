@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shop.dao.OrdersMapperCustom" >
+	<!-- 查询订单信息 -->
+	<select id="findOrdersUser" resultType="com.shop.model.OrdersCustom">
+		SELECT 
+		cnt_orders.*,
+		cnt_user.username,
+		cnt_user.sex,
+		cnt_user.address
+		FROM
+		cnt_orders,
+		cnt_user
+		WHERE
+		cnt_orders.user_id = cnt_user.id
+	</select>
+</mapper>
