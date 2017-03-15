@@ -34,7 +34,7 @@ public class ItemsServiceImpl implements ItemsService{
 	}
 
 	@Override
-	public ItemsCustom findItemsById(int id) throws Exception {
+	public ItemsCustom findItemsById(Integer id) throws Exception {
 		
 		Items items = itemsMapper.selectByPrimaryKey(id);
 		
@@ -46,8 +46,11 @@ public class ItemsServiceImpl implements ItemsService{
 	}
 
 	@Override
-	public void updateItems(int id, ItemsCustom itemsCustom) throws Exception {
+	public void updateItems(Integer id, ItemsCustom itemsCustom) throws Exception {
 		
+		itemsCustom.setId(id);
+		itemsMapper.updateByPrimaryKeyWithBLOBs(itemsCustom);
+	
 	}
 
 }
