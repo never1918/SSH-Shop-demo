@@ -3,9 +3,9 @@
 	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
-  <display-name>Archetype Created Web Application</display-name>
-  <!-- spring.xml 和spring-mybatis.xml路径设置 -->
-<context-param>
+	<display-name>Archetype Created Web Application</display-name>
+	<!-- spring.xml 和spring-mybatis.xml路径设置 -->
+	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath:spring.xml,classpath:spring-mybatis.xml</param-value>
 	</context-param>
@@ -52,7 +52,7 @@
 	<servlet-mapping>
 		<servlet-name>shop_demo</servlet-name>
 		<url-pattern>*.action</url-pattern>
-		<!-- url -pattern取决了访问以什么为结尾  htmls?-->
+		<!-- url -pattern取决了访问以什么为结尾 htmls? -->
 	</servlet-mapping>
 
 	<!-- 配置session超时时间，单位分钟 -->
@@ -61,6 +61,6 @@
 	</session-config>
 
 	<welcome-file-list>
-		<welcome-file>/index.jsp</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 </web-app>
