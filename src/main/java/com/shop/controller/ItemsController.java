@@ -15,8 +15,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -81,6 +83,16 @@ public class ItemsController {
 		return "items/editItems";
 
 	}	
+	
+	//查询商品，输出Json
+	//{id}表示传参到@PathVariable指定名称中
+	@RequestMapping("/itemsView/{id}")
+	public @ResponseBody ItemsCustom itemsView(@PathVariable Integer id)throws Exception{
+		
+		ItemsCustom itemsCustom = itemsService.findItemsById(id);
+		
+		return itemsCustom;
+	}
 
 	//商品信息修改提交
 	//需要校验的pojo前边添加@Validated,BindingResult bindingRsult接受出错信息
