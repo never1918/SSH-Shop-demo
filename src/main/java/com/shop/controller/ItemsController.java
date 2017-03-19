@@ -69,4 +69,32 @@ public class ItemsController {
 //		return "success";
 	}
 
+	//批量删除商品信息
+	@RequestMapping("/deleteItems")
+	public String deleteItems(Integer[] items_id)throws Exception{
+		
+		//调用service
+		
+		return "success";
+	}
+	
+	//批量修改商品信息，将查询结果输出，并可以在页面编辑
+	@RequestMapping("/editItemsQuery")
+	public String editItemsQuery(Model model,ItemsQueryVo itemsQueryVo)throws Exception{
+
+		List<ItemsCustom> itemsList = itemsService.findItemsList(itemsQueryVo);
+
+		model.addAttribute("itemsList", itemsList);
+
+		return "items/editItemsQuery";
+
+	}	
+	
+	//批量修改商品提交
+	//接受批量提交的商品信息，存储到List属性中。
+	@RequestMapping("/editItemsAllSubmit")
+	public String editItemsAllSubmit(ItemsQueryVo itemsQueryVo)throws Exception{
+		
+		return "success";
+	}
 }
