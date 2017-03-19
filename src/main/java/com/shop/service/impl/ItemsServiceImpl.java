@@ -23,10 +23,10 @@ public class ItemsServiceImpl implements ItemsService{
 
 	@Autowired
 	private ItemsMapperCustom itemsMapperCustom;
-	
+
 	@Autowired
 	private ItemsMapper itemsMapper;
-	
+
 	@Override
 	public List<ItemsCustom> findItemsList(ItemsQueryVo itemsQueryVo)
 			throws Exception {
@@ -35,22 +35,25 @@ public class ItemsServiceImpl implements ItemsService{
 
 	@Override
 	public ItemsCustom findItemsById(Integer id) throws Exception {
-		
+
 		Items items = itemsMapper.selectByPrimaryKey(id);
-		
-		ItemsCustom itemsCustom = new ItemsCustom();
-		
-		BeanUtils.copyProperties(items, itemsCustom);
-		
+
+		ItemsCustom itemsCustom = null;
+
+		if(items!=null){
+			itemsCustom = new ItemsCustom();
+			BeanUtils.copyProperties(items, itemsCustom);
+		}
+
 		return itemsCustom;
 	}
 
 	@Override
 	public void updateItems(Integer id, ItemsCustom itemsCustom) throws Exception {
-		
+
 		itemsCustom.setId(id);
 		itemsMapper.updateByPrimaryKeyWithBLOBs(itemsCustom);
-	
+
 	}
 
 }

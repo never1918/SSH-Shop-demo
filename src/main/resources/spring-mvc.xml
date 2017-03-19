@@ -14,7 +14,8 @@
 	<!-- 自动扫描controller包下的所有类，如果@Controller注入为bean -->
 	<context:component-scan base-package="com.shop.controller" />
 
-	<mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
+	<mvc:annotation-driven conversion-service="conversionService"
+		validator="validator"></mvc:annotation-driven>
 
 	<!-- 避免IE执行AJAX时,返回JSON出现下载文件 -->
 	<bean id="mappingJacksonHttpMessageConverter"
@@ -70,6 +71,30 @@
 				<bean class="com.shop.controller.converter.CustomDateConverter" />
 			</list>
 		</property>
+	</bean>
+
+	<!-- 校验器 -->
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator" />
+		<property name="validationMessageSource" ref="messageSource" />
+	</bean>
+
+	<!-- 校验错误信息配置文件 -->
+	<bean id="messageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:CustomValidationMessages</value>
+			</list>
+		</property>
+		<!-- 资源文件编码格式 -->
+		<property name="fileEncodings" value="UTF-8" />
+		<property name="cacheSeconds" value="120" />
+	</bean>
+
+	<!-- 全局异常处理器 -->
+	<bean class="com.shop.exception.CustomExceptionResolver">
 	</bean>
 
 </beans>
