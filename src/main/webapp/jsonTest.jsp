@@ -33,6 +33,7 @@ function responseJson(){
 </script>
 </head>
 <body>
+<img alt="test" src="1.png">
 <input type="button" onclick="requestJson()" value="请求json"/>
 <input type="button" onclick="responseJson()" value="请求key/value"/>
 </body>

@@ -37,9 +37,9 @@ public class LoginInterceptor implements HandlerInterceptor{
 			return true;
 		}
 		//执行到这里说明需要身份验证，跳转登录页面
-		request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
+//		request.getRequestDispatcher("/WEB-INF/jsp/login.jsp").forward(request, response);
 		
-		return false;
+		return true;
 	}
 
 	//进入Handler方法之后，返回modelAndView之前执行
