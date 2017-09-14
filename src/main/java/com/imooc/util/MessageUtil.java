@@ -15,6 +15,10 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.imooc.po.Image;
+import com.imooc.po.ImageMessage;
+import com.imooc.po.Music;
+import com.imooc.po.MusicMessage;
 import com.imooc.po.News;
 import com.imooc.po.NewsMessage;
 import com.imooc.po.TextMessage;
@@ -34,6 +38,9 @@ public class MessageUtil {
 	public static final String MESSAGE_CLICK = "CLICK";
 	public static final String MESSAGE_VIEW = "VIEW";
 	public static final String MESSAGE_NEWS = "news";
+	public static final String MESSAGE_MUSIC = "music";
+	public static final String MESSAGE_SCANCODE= "scancode_push";
+	public static final String MESSAGE_SUBSCRIBE = "subscribe";
 
 	/**
 	 * 
@@ -115,7 +122,29 @@ public class MessageUtil {
 		xstream.alias("item",new News().getClass());
 		return xstream.toXML(newsMessage);
 	}
-
+	
+	/**
+	 * 图片消息转为xml
+	 * @param imageMessage
+	 * @return
+	 */
+	public static String imageMessageToXml(ImageMessage imageMessage){
+		XStream xstream = new XStream();
+		xstream.alias("xml", imageMessage.getClass());
+		return xstream.toXML(imageMessage);
+	}
+	
+	/**
+	 * 音乐消息转为xml
+	 * @param musicMessage
+	 * @return
+	 */
+	public static String musicMessageToXml(MusicMessage musicMessage){
+		XStream xstream = new XStream();
+		xstream.alias("xml", musicMessage.getClass());
+		return xstream.toXML(musicMessage);
+	}
+	
 	/**
 	 * 图文消息的组装
 	 * @param toUserName
@@ -143,6 +172,51 @@ public class MessageUtil {
 		newsMessage.setArticleCount(newsList.size());
 	
 		message = newsMessageToXml(newsMessage);
+		return message;
+	}
+	
+	/**
+	 * 组装图片消息
+	 * @param toUserName
+	 * @param fromUserName
+	 * @return
+	 */
+	public static String initImageMessage(String toUserName,String fromUserName){
+		String message = null;
+		Image image = new Image();
+		image.setMediaId("oRIwuudA9WvWa0XCMx8XCbbtyg13g7e5E6jQms8KwBvbzlvjTksLn-I6dYBWA7ZA");
+		ImageMessage imageMessage = new ImageMessage();
+		imageMessage.setFromUserName(toUserName);
+		imageMessage.setToUserName(fromUserName);
+		imageMessage.setMsgType(MESSAGE_IMAGE);
+		imageMessage.setCreateTime(new Date().getTime());
+		imageMessage.setImage(image);
+		message = imageMessageToXml(imageMessage);
+		return message;
+	}
+	
+	/**
+	 * 组装音乐消息
+	 * @param toUserName
+	 * @param fromUserName
+	 * @return
+	 */
+	public static String initMusicMessage(String toUserName,String fromUserName){
+		String message = null;
+		Music music = new Music();
+		music.setThumbMediaId("ODVUaSkWkb8W9xNPK04yVYZZS08dNN_ibjwtTDDGebaxJT9FKSBfhIZykWTLTIbi");
+		music.setTitle("see you again");
+		music.setDescription("速7片尾曲");
+		music.setMusicUrl("http://4121b8c7.ngrok.io/ssm/See You Again.mp3");
+		music.setHQMusicUrl("http://4121b8c7.ngrok.io/ssm/See You Again.mp3");
+		
+		MusicMessage musicMessage = new MusicMessage();
+		musicMessage.setFromUserName(toUserName);
+		musicMessage.setToUserName(fromUserName);
+		musicMessage.setMsgType(MESSAGE_MUSIC);
+		musicMessage.setCreateTime(new Date().getTime());
+		musicMessage.setMusic(music);
+		message = musicMessageToXml(musicMessage);
 		return message;
 	}
 }
